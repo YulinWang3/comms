@@ -17,21 +17,20 @@ import socket, sys, time, json, sqlite3
 
 def receive_from_arduino_pinger(s, port):
         buf, address = s.recvfrom(port)
-        buf = buf.decode('utf-8').decode('utf-8')
-        print(buf)
         results = json.loads(buf)
-        a = results[location]
-        b = results[depth]
-        c = results[temperature]
-        d = results[pH]
-        e = results[turbidity]
+        a = results['location']
+        b = results['depth']
+        c = results['temperature']
+        d = results['ph']
+        e = results['turbidity']
 
         db = sqlite3.connect('./location.db')
         cursor = db.cursor()
-        cursor.execute("INSERT INTO 'location_values' ('location_id', 'tdate', 'ttime', 'tph', 'ttemperature', 'turbidity', 'tdepth') VALUES ({}, date('now'), time('now'), {}, {}, {}, {}".format(a, b, c, d, e))
+        cursor.execute("INSERT INTO 'location_values' ('location_id', 'tdate', 'ttime', 'tph', 'ttemperature', 'tturbidity', 'tdepth') VALUES ({}, date('now'), time('now'), {}, {}, {}, {});".format(a, b, c, d, e))
+        db.commit()
 
 def send_to_arduino_pinger(s, port, collected_values):
-        s.sendto(collected_values, ('localhost', 200))
+        s.sendto('nice'.encode('utf-8'), ('localhost', 200))
 
 if __name__ == "__main__":
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

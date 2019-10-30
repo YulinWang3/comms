@@ -22,7 +22,7 @@ def ping_arduino(s, port):
 
 def ping_data_store(s, port, collected_values):
 	server_address = ('localhost', port)
-	s.sendto(str(collected_values).encode('utf-8'), server_address)
+	s.sendto(collected_values, server_address)
 
 if __name__ == "__main__":
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -33,7 +33,7 @@ if __name__ == "__main__":
 		print("[ARDUINO_PINGER] sending signal to arduino")
 
 		ping_arduino(s, 100)
-		collected_values = s.recvfrom(100)
+		collected_values, address= s.recvfrom(100)
 
 		print("[ARDUINO_PINGER] sending to data_store")
 
