@@ -22,8 +22,7 @@ def ping_arduino(s, port):
 
 def ping_data_store(s, port, collected_values):
 	server_address = ('localhost', port)
-	s.sendto(collected_values.encode('utf-8'), server_address)
-
+	s.sendto(str(collected_values).encode('utf-8'), server_address)
 
 if __name__ == "__main__":
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -31,14 +30,19 @@ if __name__ == "__main__":
 	s.bind(listening_on)
 
 	while True:
-		print("PINGING ARDUINO")
+		print("[ARDUINO_PINGER] sending signal to arduino")
+
 		ping_arduino(s, 100)
 		collected_values = s.recvfrom(100)
-		print("RECEIVED FROM ARDUINO, PINGING DATA_STORE")
+
+		print("[ARDUINO_PINGER] sending to data_store")
+
 		ping_data_store(s, 300, collected_values)
 		ack_store = s.recvfrom(300)
+
 		print(ack_store)
-		print("RECEIVED FROM DATA_STORE")
+		print("[ARDUINO_PINGER] successfully stored in db")
+
 		time.sleep(10)
 
 	s.shutdown(1)
