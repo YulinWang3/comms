@@ -13,21 +13,31 @@
 # - receives on 10.0.0.1:300 (self)
 # - sends to 10.0.0.1:200 (arduino pinger)
 
-import socket, sys, time, random, json
+import socket, sys, time, random, json, serial
 
 def receive_from_arduino_pinger(s, port):
     buf, address = s.recvfrom(port)
-    print(buf)
     
     if buf in [0.0, 0.25, 0.50, 0.75]:
-        conf_motor(buf)
+        # using serial, send a message to arduino
+        # 
+        # ser.write(buf)
+        #
+        #
         return "ACK"
+    
     else:
-        fake_data = json.dumps(fakeTheData())
-        return fake_data
+        # using serial, read from port 9600
+        #
+        # ser.read_line()
+        #
+        # fake_data = json.dumps(fakeTheData())
+     return fake_data
+
 
 def send_to_arduino_pinger(s, port, collected_values):
     s.sendto(collected_values.encode('utf-8'), ('localhost', 200))
+
 
 def fakeTheData():
     return {
@@ -37,6 +47,7 @@ def fakeTheData():
         "ph": random.randint(0, 14),
         "turbidity": random.randint(0, 3000),
         }
+
 
 if __name__ == "__main__":
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
