@@ -26,7 +26,8 @@ def receive_from_arduino_pinger(s, port):
 
         db = sqlite3.connect('./location.db')
         cursor = db.cursor()
-        cursor.execute("INSERT INTO 'location_values' ('location_id', 'tdate', 'ttime', 'tph', 'ttemperature', 'tturbidity', 'tdepth') VALUES ({}, date('now'), time('now'), {}, {}, {}, {});".format(a, b, c, d, e))
+        sqlite3_query = "INSERT INTO 'location_values' ('location_id', 'tdate', 'ttime', 'tph', 'ttemperature', 'tturbidity', 'tdepth') VALUES ({}, date('now'), time('now'), {}, {}, {}, {});".format(a, b, c, d, e)
+        cursor.execute(sqlite3_query)
         db.commit()
 
 def send_to_arduino_pinger(s, port, collected_values):
