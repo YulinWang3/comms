@@ -20,7 +20,7 @@ def receive_from_arduino_pinger(s, port):
     
     if buf in [0.0, 0.25, 0.50, 0.75]:
         # using serial, send a message to arduino
-        # 
+        #
         # ser.write(buf)
         #
         #
@@ -31,8 +31,8 @@ def receive_from_arduino_pinger(s, port):
         #
         # ser.read_line()
         #
-        # fake_data = json.dumps(fakeTheData())
-     return fake_data
+        fake_data = json.dumps(fakeTheData())
+        return fake_data
 
 
 def send_to_arduino_pinger(s, port, collected_values):
@@ -55,5 +55,7 @@ if __name__ == "__main__":
     s.bind(listening_on)
 
     while True:
+        print("Waiting for value from arduino_pinger")
         collected_values = receive_from_arduino_pinger(s, 100)
+        print("got "+collected_values+"\n")
         send_to_arduino_pinger(s, 200, collected_values)

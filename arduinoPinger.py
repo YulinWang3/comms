@@ -36,13 +36,18 @@ if __name__ == "__main__":
             depth = str(i)
             
             # Ping the Arduino to set the depth and wait for an acknowledgement
+            print("Pinging arduino with depth")
             ping_arduino(s, 100, depth)
-            acknowledge = s.recvfrom(100)
-            
+            acknowledge, address = s.recvfrom(100)
+            print(acknowledge)
+
             # Ping the Arduino to collect the values from the sensors, and send them to the data store
+            print("Pinging arduino for values")
             ping_arduino(s, 100, 'collect')
             collected_values, address= s.recvfrom(100)
             
+            print("found values")
+            print(str(collected_values)+"\n")
             ping_data_store(s, 300, collected_values)
 
             time.sleep(10)
