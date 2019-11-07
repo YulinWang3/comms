@@ -4,7 +4,7 @@ Test #2 Determine Data Store ACK failed received JSON
 Test #3 Boolean JSON Location fail
 Test #4 Boolean JSON depth fail
 Test #5 Boolean JSON temperature fail
-Test temperature out of accepted range (5C -> 50C)
+Test temperature out of accepted range (-80 -> 150C)
 Test# temperature out of probe range (-55C -> 125 C)
 Test #6 Boolean JSON ph fail
 Test# pH out of accepted range (0 -> 14)
@@ -22,7 +22,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 
 # Inputting false data:
-test_values = '{ "location": 1, "depth" : 0, "temperature" : 15, "pH" : 1, "turbidity": 300}'
+test_values = '{ "location": 0, "depth" : 4, "temperature" : 15, "pH" : 1, "turbidity": 300}'
 
 
 
@@ -36,6 +36,18 @@ ping_data_store(s, 100, collected_values)
 receive_from_arduino_pinger(s, 100)
 '''
 
+'''
+    Automated Testing Sequence
+Reads from a file with automatic errors. Checks the system line by line.
+'''
+
+fileRead = open("ErrorTesting.txt", "r")
+if fileRead.mode == 'r':
+    print(fileRead.readlines())
+'''
+Test JSON
+Confirm that data that has been transfered has not corrupted
+'''
 class JsonTest(unittest.TestCase):
     def test_location(self):
         self.assertEqual(collected_values["location"], 1)
