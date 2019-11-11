@@ -38,8 +38,8 @@ if __name__ == "__main__":
             # Ping the Arduino to set the depth and wait for an acknowledgement
             print("Pinging arduino with depth")
             ping_arduino(s, 100, depth)
-            acknowledge, address = s.recvfrom(100)
-            print(acknowledge)
+            acknowledge_depth, address = s.recvfrom(100)
+            print(acknowledge_depth)
 
             # Ping the Arduino to collect the values from the sensors, and send them to the data store
             print("Pinging arduino for values")
@@ -49,6 +49,9 @@ if __name__ == "__main__":
             print("found values")
             print(str(collected_values)+"\n")
             ping_data_store(s, 300, collected_values)
+            acknowledge_store, address= s.recvfrom(100)
+            print(acknowledge_store)
+
 
             time.sleep(10)
 
