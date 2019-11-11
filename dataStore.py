@@ -17,6 +17,7 @@ import socket, sys, time, json, sqlite3
 
 def receive_from_arduino_pinger(s, port):
         buf, address = s.recvfrom(port)
+        print(str(buf)+"\n")
         results = json.loads(buf)
         a = results['location']
         b = results['depth']
@@ -39,7 +40,7 @@ if __name__ == "__main__":
         s.bind(listening_on)
 
         while True:
-                print("[DATA_STORE] waiting for message from arduino_pinger")
+                print("Waiting for message from arduino_pinger")
                 collected_values = receive_from_arduino_pinger(s, 100)
                 send_to_arduino_pinger(s, 200, collected_values)
 
