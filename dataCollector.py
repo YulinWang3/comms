@@ -13,12 +13,13 @@
 # - receives on 10.0.0.1:300 (self)
 # - sends to 10.0.0.1:200 (arduino pinger)
 
-import socket, sys, time, random, json, serial
+import socket, sys, time, random, json, serial  
 
 def receive_from_arduino_pinger(s, port):
     buf, address = s.recvfrom(port)
+    print(buf.decode('utf-8'))
     
-    if buf in [0.0, 0.25, 0.50, 0.75]:
+    if buf.decode('utf-8') in ['0.0', '0.25', '0.50', '0.75']:
         # using serial, send a message to arduino
         #
         # ser.write(buf)
