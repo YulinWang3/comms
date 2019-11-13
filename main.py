@@ -4,7 +4,6 @@ from flask_restful import Resource, Api
 
 app = Flask(__name__)
 api = Api(app)
-DATABASE = './location.db'
 
 class wyw_select_all(Resource):
     def get(self):
@@ -31,7 +30,7 @@ def dict_factory(cursor, row):
 def query(queryString):
         db = None
         try:
-            db = sqlite3.connect(DATABASE)
+            db = sqlite3.connect('./location.db')
         except Error as e:
             print(e)
 
