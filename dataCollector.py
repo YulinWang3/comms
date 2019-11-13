@@ -15,28 +15,35 @@
 
 import socket, sys, time, random, json, serial
 
+ser = serial.Serial('/dev/tty/ACM0', 9600)
+
 def receive_from_arduino_pinger(s, port):
     buf, address = s.recvfrom(port)
     
     if buf in [0.0, 0.25, 0.50, 0.75]:
+        
         # using serial, send a message to arduino
-        # 
-        # ser.write(buf)
-        #
-        #
+        ser.write(buf)
+        
         return "ACK"
     
     else:
-        # using serial, read from port 9600
-        #
-        # ser.read_line()
-        #
+        # write to arduino to start collecting the data
+        ser.write(b'1')  
+        
+        time.sleep(6)
+        
+        # using serial, read from the serial port
+        while 1:
+            if (ser.in_waiting > 0):
+                line = ser.readline()
+            
         # fake_data = json.dumps(fakeTheData())
-     return fake_data
+        return fake_data
 
 
 def send_to_arduino_pinger(s, port, collected_values):
-    s.sendto(collected_values.encode('utf-8'), ('localhost', 200))
+    s.sendto(collected_values.encode('utf-8'), ('localhost', 200)) 
 
 
 def fakeTheData():
