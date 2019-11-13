@@ -28,3 +28,12 @@ Test #7 Boolean JSON turbidity
 Test turbidity probe temperature out of range (5C -> 90C)
 Test Turbidity probe for accepted values (0-3000 NTU)
 '''
+
+import dataCollectortesting, json
+
+f = open("ErrorTesting.txt", "r")
+for x in f:
+    dataCollectortesting.test_values = f.readline()
+    print(dataCollectortesting.test_values)
+    dataCollectortesting.collected_values = json.loads(dataCollectortesting.test_values)
+    dataCollectortesting.main()

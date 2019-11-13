@@ -11,7 +11,7 @@ class AcceptedRangeTest(unittest.TestCase):
         self.assertTrue(collected_values["temperature"] > -50)
 
     def test_pH_Range_High(self):
-         self.assertTrue(collected_values["pH"] <=14)
+         self.assertTrue(collected_values["pH"] <=14, msg= '{0}')
 
     def test_pH_Range_Low(self):
         self.assertTrue(collected_values["pH"] >= 0)
@@ -54,11 +54,6 @@ class TestOther(unittest.TestCase):
         depths = [0, 0.25, 0.50, 0.75]
         self.assertTrue(collected_values["depth"] in depths)
 
-'''
-# Location test takes the database values and compares them to the running value
-class TestOther(unittest.TestCase):
-    def test_Location(self):
-'''
 
 if __name__ == '__main__':
     unittest.main()

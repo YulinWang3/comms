@@ -1,1 +1,2 @@
-test_values = '{ "location": 1, "depth" : 0, "temperature" : 15, "pH" : 1, "turbidity": 300}'
+'{ "location": 1, "depth" : 0, "temperature" : 15, "pH" : 1, "turbidity": 300}'
+'{ "location": 4, "depth" : 0, "temperature" : 15, "pH" : 1, "turbidity": 300}'
