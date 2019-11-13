@@ -1,12 +1,6 @@
-import json
-import unittest
-import sqlite3
-from flask_restful import Resource
-from main import wyw_select_locations
-import main
-import requests
+import json, unittest, main
 
-test_values = '{ "location": 0, "depth" : 4, "temperature" : 15, "pH" : 1, "turbidity": 300}'
+test_values = '{ "location": 1, "depth" : 0, "temperature" : 15, "pH" : 1, "turbidity": 300}'
 collected_values = json.loads(test_values)
 
 class AcceptedRangeTest(unittest.TestCase):
@@ -50,6 +44,15 @@ class TemperatureRangeTest(unittest.TestCase):
     def test_Turbidity_Temperature_Low(self):
         self.assertTrue(collected_values["temperature"] >= 5)
 
+class TestOther(unittest.TestCase):
+    def test_location(self):
+        location_array = main.query("SELECT * FROM locations")
+        self.assertTrue(1 <= collected_values["location"] <= len(location_array))
+
+    # can we make this testing dynamic?
+    def test_depth(self):
+        depths = [0, 0.25, 0.50, 0.75]
+        self.assertTrue(collected_values["depth"] in depths)
 
 '''
 # Location test takes the database values and compares them to the running value
