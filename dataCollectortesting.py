@@ -50,6 +50,7 @@ class TemperatureRangeTest(unittest.TestCase):
     def test_Turbidity_Temperature_Low(self):
         self.assertTrue(collected_values["temperature"] >= 5)
 
+
 '''
 # Location test takes the database values and compares them to the running value
 class TestOther(unittest.TestCase):
