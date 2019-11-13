@@ -37,7 +37,7 @@ def query(queryString):
         if not db:
             return "Failed to connect"
         else:
-            db.row_factory = self.dict_factory
+            db.row_factory = dict_factory
             cur = db.cursor()
             cur.execute(queryString)
             rows = cur.fetchall()
