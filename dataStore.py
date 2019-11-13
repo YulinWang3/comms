@@ -14,6 +14,7 @@
 # - sends to 10.0.0.1:200 (arduino pinger)
 
 import socket, sys, time, json, sqlite3
+from arduinoPinger import ping
 
 def receive_from_arduino_pinger(s, port):
         buf, address = s.recvfrom(port)
@@ -42,5 +43,5 @@ if __name__ == "__main__":
         while True:
                 print("Waiting for message from arduino_pinger")
                 collected_values = receive_from_arduino_pinger(s, 100)
-                send_to_arduino_pinger(s, 200, collected_values)
+                ping(s, 200, collected_values.decode('utf-8'))
 
