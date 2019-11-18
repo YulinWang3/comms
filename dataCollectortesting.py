@@ -59,7 +59,7 @@ class TestOther(unittest.TestCase):
     # Gets all location values from database and checks if in range
     def test_location(self):
         location_array = main.query("SELECT * FROM locations")
-        self.assertTrue(1 <= collected_values["location"] <= len(location_array))
+        self.assertTrue(1<= collected_values["location"] <= len(location_array))
 
     # Checks if depth is a specific value(s)
     def test_depth(self):
