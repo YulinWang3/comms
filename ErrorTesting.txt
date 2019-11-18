@@ -1,2 +1,12 @@
-'{ "location": 1, "depth" : 0, "temperature" : 15, "pH" : 1, "turbidity": 300}'
-'{ "location": 4, "depth" : 0, "temperature" : 15, "pH" : 1, "turbidity": 300}'
+{ "location": 1, "depth" : 0, "temperature" : 15, "pH" : 1, "turbidity": 300}
+{ "location": 2, "depth" : 0, "temperature" : 15, "pH" : 1, "turbidity": 300}
+{ "location": 3, "depth" : 0, "temperature" : 15, "pH" : 1, "turbidity": 300}
+{ "location": 4, "depth" : 0, "temperature" : 15, "pH" : 1, "turbidity": 300}
+{ "location": 1, "depth" : 0, "temperature" : 15, "pH" : 1, "turbidity": 300}
+{ "location": 1, "depth" : 0.25, "temperature" : 15, "pH" : 1, "turbidity": 300}
+{ "location": 1, "depth" : 0.50, "temperature" : 15, "pH" : 1, "turbidity": 300}
+{ "location": 1, "depth" : 0.75, "temperature" : 15, "pH" : 1, "turbidity": 300}
+{ "location": 1, "depth" : 1, "temperature" : 15, "pH" : 1, "turbidity": 300}
+{ "location": 1, "depth" : 0.77, "temperature" : 15, "pH" : 1, "turbidity": 300}
+{ "location": 1, "depth" : 0, "temperature" : 15, "pH" : 1, "turbidity": 300}
+{ "location": 1, "depth" : 0, "temperature" : 15, "pH" : 1, "turbidity": 300}
