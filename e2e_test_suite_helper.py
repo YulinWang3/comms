@@ -32,5 +32,8 @@ if __name__ == '__main__':
 	socket_helper.bind(address_helper)
 	
 	while True:
-		data = receive(100, socket_helper)
-		ping(socket_helper, data, addres_master)
+		try:
+			data = receive(100, socket_helper)
+			ping(socket_helper, data, addres_master)
+		except KeyboardInterrupt:
+			exit()
