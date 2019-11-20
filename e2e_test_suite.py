@@ -11,6 +11,15 @@
 # - receives on 10.0.0.1:300 (self)
 # - sends to 10.0.0.1:200 (arduino pinger)
 
+import socket, unittest
+
+port_master = 100 
+port_helper = 200
+addres_master = ('localhost', 100)
+address_helper = ('localhost', 200)
+socket_master = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+socket_master.bind(addres_master)
+
 def ping(sender, data, receiver):
 	sender.sendto(str(data).encode("utf-8"), receiver)
 
@@ -19,45 +28,39 @@ def receive(sender, receiver):
 	data = data.decode("utf-8")
 	return data
 
-def test_arduinoPingerDepthFail():
-	data = '0.10'
-    ping(socket_ap, data, receiver)
-    result, address = s.recvfrom(100)
-    result = result.decode("utf-8")
+class e2e(unittest.TestCase):
 
-    assert result == 'F'
+	def test_arduinoPingerDepthFail(self):
+		data = '0.10'
+		ping(socket_master, data, address_helper)
+		result, address = socket_master.recvfrom(100)
+		result = result.decode("utf-8")
 
-def test_arduinoPingerCollectFail():
-	data = '0.0'
-    ping(socket_ap, data, receiver)
-    result, address = s.recvfrom(100)
-    result = result.decode("utf-8")
+		self.assertEqual(result,'F')
 
-    data = 'XYZ'
-    ping(socket_ap, data, receiver)
-    result, address = s.recvfrom(100)
-    result = result.decode("utf-8")
+	def test_arduinoPingerCollectFail(self):
+		data = '0.0'
+		ping(socket_master, data, address_helper)
+		result, address = socket_master.recvfrom(100)
+		result = result.decode("utf-8")
 
-    assert result == 'F'
+		data = 'XYZ'
+		ping(socket_master, data, address_helper)
+		result, address = socket_master.recvfrom(100)
+		result = result.decode("utf-8")
+
+		self.assertEqual(result,'F')
 
 
-def test_dataCollectorAcknowledgeFail():
+	def test_dataCollectorAcknowledgeFail(self):
 
-    data = 'collect'
-    ping(socket_ap, data, receiver)
-    result, address = s.recvfrom(100)
-    result = result.decode("utf-8")
+		data = 'collect'
+		ping(socket_master, data, address_helper)
+		result, address = socket_master.recvfrom(100)
+		result = result.decode("utf-8")
 
-    assert result == 'ACC'
-
-def test_dataStoreFail():
+		self.assertEqual(result,'ACC')
 
 if __name__ == "__main__":
-	port_master = 100 
-	port_helper = 200
-	addres_master = ('localhost', 100)
-	address_helper = ('localhost', 200)
-	socket_master = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-	socket_master.bind(addres_master)
-
+	unittest.main()
 

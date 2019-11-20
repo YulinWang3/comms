@@ -1,4 +1,6 @@
 
+import socket
+
 def ping(sender, data, receiver):
 	sender.sendto(str(data).encode("utf-8"), receiver)
 
@@ -8,7 +10,7 @@ def receive(sender, receiver):
 	
 	result = ''
 
-	if any(data in ['0.10', 'XYZ']):
+	if data == '0.10' or data == 'XYZ':
 		# test_arduinoPingerDepthFail
 		result = 'F'
 
